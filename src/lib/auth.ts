@@ -32,9 +32,11 @@ export const authOptions: NextAuthOptions = {
             clientSecret: getGoogleCredentials().clientSecret,
         }),
     ],
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, user }) {
             const dbUserResult = (await db.get(`user:${token.id}`)) as | string | null
+            console.log("DEBUG: dbUserResult =", dbUserResult)
             if (!dbUserResult) {
                 if (user) {
                     token.id = user!.id
@@ -42,14 +44,15 @@ export const authOptions: NextAuthOptions = {
                 return token;
             }
 
-            const dbUser = JSON.parse(dbUserResult) as User
+            const dbUser = dbUserResult as unknown as User             
 
-            return {
-                id: dbUser.id,
-                name: dbUser.name,
-                email: dbUser.email,
-                image: dbUser.image,
-            }
+
+            token.id = dbUser.id;
+            token.name = dbUser.name;
+            token.email = dbUser.email;
+            token.picture = dbUser.image;
+            return token;
+            
         },
         async session({ session, token }) {
             if (token) {
