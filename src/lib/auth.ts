@@ -3,6 +3,7 @@ import { NextAuthOptions } from "next-auth";
 import { db } from "./db";
 // import { fetchRedis } from '@/helpers/redis'
 import GoogleProvider from "next-auth/providers/google"
+import { fetchRedis } from "@/helpers/redis";
 
 function getGoogleCredentials() {
     const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -35,7 +36,7 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, user }) {
-            const dbUserResult = (await db.get(`user:${token.id}`)) as | string | null
+            const dbUserResult = (await fetchRedis('get', `user:${token.id}`)) as | string | null
             console.log("DEBUG: dbUserResult =", dbUserResult)
             if (!dbUserResult) {
                 if (user) {
@@ -44,8 +45,7 @@ export const authOptions: NextAuthOptions = {
                 return token;
             }
 
-            const dbUser = dbUserResult as unknown as User             
-
+            const dbUser = JSON.parse(dbUserResult) as User             
 
             token.id = dbUser.id;
             token.name = dbUser.name;
