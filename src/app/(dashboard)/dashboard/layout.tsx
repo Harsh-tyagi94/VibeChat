@@ -9,6 +9,7 @@ import SignoutButton from '@/components/SignOutButton'
 import FriendRequestSidebarOptions from '@/components/FriendRequestSidebarOptions'
 import { fetchRedis } from '@/helpers/redis'
 import { getFriendByUserId } from '@/helpers/get-friends-by-user-id'
+import SidebarChatList from '@/components/SidebarChatList'
 
 interface LayoutProps {
   children: ReactNode
@@ -64,7 +65,7 @@ const Layout = async ({ children }: LayoutProps) => {
                     <ul role='list' className='flex flex-1 flex-col gap-y-7'>
                         <li>
                             //chats
-                            <SidebarChatList />
+                            <SidebarChatList sessionId={session.user.id} friends={Friends} />
                         </li>
                         <li>
                             <div className='text-xs font-semibold leading-6 text-gray-400'>
@@ -88,10 +89,15 @@ const Layout = async ({ children }: LayoutProps) => {
                                     </li>
                                 )
                                 })}
+
+                                <li>
+                                    <FriendRequestSidebarOptions
+                                     sessionId={session.user.id}
+                                     initialUnseenRequestCount={unseenRequestCount} 
+                                    />
+                                </li>
                             </ul>
                         </li>
-
-                        <FriendRequestSidebarOptions sessionId={session.user.id} initialUnseenRequestCount={unseenRequestCount} />
 
                         <li className='-mx-6 mt-auto flex items-center'>
                             <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900'>
