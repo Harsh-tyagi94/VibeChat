@@ -17,7 +17,8 @@ const page = async () => {
 
   const incomingFriendRequests = await Promise.all(
     incomingSenderIds.map(async (senderId) => {
-      const sender = (await fetchRedis('get', `user:${senderId}`)) as string
+      const sender = (await fetchRedis('get', `user:${senderId}`)) as string | null
+      if (!sender) return null
       const senderParsed = JSON.parse(sender) as User
       
       return {
@@ -27,12 +28,17 @@ const page = async () => {
     })
   )
 
+  const validRequests = incomingFriendRequests.filter(Boolean) as {
+    senderId: string
+    senderEmail: string
+  }[]
+
   return (
     <main className='pt-8'>
       <h1 className='font-bold text-5xl mb-8'>Add a friend</h1>
       <div className='flex flex-col gap-4'>
         <FriendRequests
-          incomingFriendRequests={incomingFriendRequests}
+          incomingFriendRequests={validRequests}
           sessionId={session.user.id}
         />
       </div>
