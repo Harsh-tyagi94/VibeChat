@@ -17,7 +17,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({incomingFriendRequests, sessio
     )
 
     const acceptFriend = async (senderId: string) => {
-        await axios.post('/api/friends/accept', {id: sessionId, senderId})
+        await axios.post('/api/friends/accept', {id: senderId})
 
         setFriendRequests((prev) => 
             prev.filter((request) => request.senderId !== senderId)
@@ -25,14 +25,15 @@ const FriendRequests: FC<FriendRequestsProps> = ({incomingFriendRequests, sessio
         router.refresh()
     }
     const denyFriend = async (senderId: string) => {
-        await axios.post('/api/friends/deny', {id: sessionId, senderId})
+        await axios.post('/api/friends/deny', {id: senderId})
 
         setFriendRequests((prev) => 
             prev.filter((request) => request.senderId !== senderId)
         )
         router.refresh()
     }
-    return <>
+    return (
+    <>
         {friendRequests.length === 0 ? (
             <p className='text-sm text-zinc-500'>
                 No friend requests available.
@@ -59,6 +60,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({incomingFriendRequests, sessio
             ))
         )}
     </>
+    )
 }
 
 export default FriendRequests

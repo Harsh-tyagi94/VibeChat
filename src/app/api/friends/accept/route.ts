@@ -22,15 +22,15 @@ export async function POST(req: Request) {
             return new Response("Already friends", { status: 400 })
         }
     
-        const isFriendRequestSent = await fetchRedis('sismember', `user:${idToAdd}:incoming_friend_requests`, session.user.id)
+        const isFriendRequestSent = await fetchRedis('sismember', `user:${session.user.id}:incoming_friend_requests`, idToAdd)
     
-        if(isFriendRequestSent) {
+        if(!isFriendRequestSent) {
             return new Response("No friend request sent", { status: 400 })
         }
 
-        db.sadd(`user:${session.user.id}:friends`, idToAdd),
-        db.sadd(`user:${idToAdd}:friends`, session.user.id),
-        db.srem(`user:${session.user.id}:incoming_friend_requests`, idToAdd)
+        await db.sadd(`user:${session.user.id}:friends`, idToAdd),
+        await db.sadd(`user:${idToAdd}:friends`, session.user.id),
+        await db.srem(`user:${session.user.id}:incoming_friend_requests`, idToAdd)
 
         return new Response("OK")
     } catch (error) {
