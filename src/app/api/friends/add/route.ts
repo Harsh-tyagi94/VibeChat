@@ -55,7 +55,7 @@ export async function POST(req: Request) {
         }
 
         //trigger before db storage for notification
-        pusherServer.trigger(
+        await pusherServer.trigger(
             toPusherKey(`user:${idToAdd}:incoming_friend_requests`),
             'incoming_friend_requests',
             {

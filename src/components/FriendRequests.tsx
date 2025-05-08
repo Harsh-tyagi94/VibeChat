@@ -12,13 +12,16 @@ interface FriendRequestsProps {
     sessionId: string
 }
 
-const FriendRequests: FC<FriendRequestsProps> = ({incomingFriendRequests, sessionId}) => {
+const FriendRequests: FC<FriendRequestsProps> = ({
+    incomingFriendRequests, 
+    sessionId
+}) => {
     const router = useRouter()
     const [friendRequests, setFriendRequests] = useState<IncomingFriendRequest[]>(
         incomingFriendRequests
     )
 
-    //useeffect for c s cf bind
+    //useEffect for c s cf bind
     useEffect( () => {
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
 
@@ -26,14 +29,15 @@ const FriendRequests: FC<FriendRequestsProps> = ({incomingFriendRequests, sessio
             senderId, 
             senderEmail
         }: IncomingFriendRequest) => {
+            console.log("function got called")
             setFriendRequests((prev) => [...prev, {senderId, senderEmail}])
         }
 
-        pusherClient.bind('incoming_friend_reuests', friendRequestHandler)
+        pusherClient.bind('incoming_friend_requests', friendRequestHandler)
 
         return () => {
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
-            pusherClient.unbind('incoming_friend_reuests', friendRequestHandler)
+            pusherClient.unbind('incoming_friend_requests', friendRequestHandler)
         }
     }, [])
 
