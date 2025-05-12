@@ -34,7 +34,7 @@ const FriendRequestSidebarOptions: FC<FriendRequestSidebarOptionsProps> = (
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
             pusherClient.unbind('incoming_friend_reuests', friendRequestHandler)
         }
-    }, [])
+    }, [sessionId])
 
 
     return (
