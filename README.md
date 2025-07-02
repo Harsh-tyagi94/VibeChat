@@ -1,8 +1,8 @@
 # 💬 VibeChat
 
-![Next.js](https://img.shields.io/badge/Next.js-15-blue?logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue?logo=typescript)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1-06B6D4?logo=tailwindcss)
+![Next.js](https://img.shields.io/badge/Next.js-13.2.4-blue?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue?logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.17-06B6D4?logo=tailwindcss)
 ![Upstash Redis](https://img.shields.io/badge/Upstash-Redis-red?logo=redis)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
@@ -15,20 +15,24 @@
 - ✅ **Real-Time Messaging** using WebSockets and Pusher
 - 🔐 **Google OAuth Authentication** via NextAuth
 - 👥 **Friend Request System** with Accept/Deny functionality
-- 🔄 **Presence Indicators** and message delivery status
-- 📱 **Fully Responsive UI** for mobile and desktop
+- 🔄 **Presence Indicators** and Message Delivery Status
+- 📱 **Fully Responsive UI** for Mobile and Desktop
 - 📦 **Session Handling and Caching** using Upstash Redis
 - ✅ **Form Validation** using Zod + React Hook Form
+- 🌗 **Skeleton Loaders**, Toast Notifications, and Autosizing Textareas
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: [Next.js 15](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/), [TailwindCSS](https://tailwindcss.com/), Headless UI
+- **Framework**: [Next.js 13.2.4](https://nextjs.org/)
+- **Language**: [TypeScript 4.9.5](https://www.typescriptlang.org/)
+- **Styling**: [TailwindCSS 3.4.17](https://tailwindcss.com/), [Headless UI](https://headlessui.dev/)
 - **Auth**: [NextAuth](https://next-auth.js.org/) with Google OAuth
 - **Realtime**: [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API), [Pusher](https://pusher.com/)
-- **Database/Cache**: [Upstash Redis](https://upstash.com/)
-- **Validation**: [Zod](https://zod.dev/), [React Hook Form](https://react-hook-form.com/)
+- **State & Forms**: [React Hook Form](https://react-hook-form.com/), [Zod](https://zod.dev/)
+- **Utilities**: [Upstash Redis](https://upstash.com/), [Axios](https://axios-http.com/), [Date-fns](https://date-fns.org/)
+- **UI Enhancements**: [Lucide Icons](https://lucide.dev/), [React Hot Toast](https://react-hot-toast.com/), [React Skeleton Loader](https://github.com/dvtng/react-loading-skeleton), [React Textarea Autosize](https://github.com/Andarist/react-textarea-autosize)
 
 ---
 
@@ -36,7 +40,7 @@
 
 | Login Page | Chat Interface | Mobile View |
 |------------|----------------|-------------|
-| ![Login](./screenshots/login.png) | ![Chat](./screenshots/chat.png) | ![Mobile](./screenshots/mobile.png) |
+| ![Login](./screenshots/auth_page.jpg) | ![Chat](./screenshots/chat_image.jpg) | ![Mobile](./screenshots/mobile_view_page.jpg) | ![Mobile](./screenshots/front_mobile.jpg) |
 
 ---
 
@@ -52,6 +56,7 @@ npm install
 
 # Setup environment variables
 cp .env.example .env
+# Fill in the required values
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 
