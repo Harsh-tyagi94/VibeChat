@@ -6,7 +6,11 @@
 ![Upstash Redis](https://img.shields.io/badge/Upstash-Redis-red?logo=redis)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-> A real-time chat application with Google OAuth, live friend requests, and responsive UI — built with cutting-edge web technologies.
+> A modern, real-time messaging app with Google OAuth, friend requests, and live presence — built with Next.js, Tailwind, and Pusher.
+
+### 🌐 Live Demo
+
+🔗 [https://vibe-chat-umber.vercel.app](https://vibe-chat-umber.vercel.app)
 
 ---
 
