@@ -41,7 +41,7 @@ const page = async ({}) => {
 
         {friendsWithLastMessage.length === 0 ? (
           <p className="text-base text-gray-600 italic">
-            You haven't started any chats yet.
+            {`You haven't started any chats yet.`}
           </p>
         ) : (
           <div className="space-y-4">

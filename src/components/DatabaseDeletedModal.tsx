@@ -64,7 +64,7 @@ export default function DatabaseDeletedModal() {
                     This action is irreversible, so confirm that the data is no longer needed before proceeding.
                   </p>
                   <button className="mt-2 w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-all duration-300">
-                    I'm sure, delete my database
+                    {`I'm sure, delete my database`}
                   </button>
                 </div>
               </div>
