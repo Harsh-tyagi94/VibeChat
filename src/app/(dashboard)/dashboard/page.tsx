@@ -33,52 +33,55 @@ const page = async ({}) => {
   )
 
   return (
-    <div className='container py-12'>
-      <h1 className='font-bold text-5xl mb-8'>Recent chats</h1>
-      {friendsWithLastMessage.length === 0 ? (
-        <p className='text-sm text-zinc-500'>Nothing to show here...</p>
-      ) : (
-        friendsWithLastMessage.map((friend) => (
-          <div
-            key={friend.id}
-            className='relative bg-zinc-50 border border-zinc-200 p-3 rounded-md'>
-            <div className='absolute right-4 inset-y-0 flex items-center'>
-              <ChevronRight className='h-7 w-7 text-zinc-400' />
-            </div>
+    <div className="min-h-screen bg-gradient-to-b from-sky-200 via-sky-100 to-white py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-4xl font-bold text-sky-900 mb-10 border-b pb-4 border-sky-400">
+          💬 Recent Chats
+        </h1>
 
-            <Link
-              href={`/dashboard/chat/${chatHrefConstructor(
-                session.user.id,
-                friend.id
-              )}`}
-              className='relative sm:flex'>
-              <div className='mb-4 flex-shrink-0 sm:mb-0 sm:mr-4'>
-                <div className='relative h-6 w-6'>
+        {friendsWithLastMessage.length === 0 ? (
+          <p className="text-base text-gray-600 italic">
+            You haven't started any chats yet.
+          </p>
+        ) : (
+          <div className="space-y-4">
+            {friendsWithLastMessage.map((friend) => (
+              <Link
+                key={friend.id}
+                href={`/dashboard/chat/${chatHrefConstructor(
+                  session.user.id,
+                  friend.id
+                )}`}
+                className="group relative flex items-center gap-4 bg-white hover:bg-sky-100 border border-sky-200 p-4 rounded-2xl shadow hover:shadow-lg transition duration-200"
+              >
+                <div className="relative h-12 w-12">
                   <Image
-                    referrerPolicy='no-referrer'
-                    className='rounded-full'
+                    referrerPolicy="no-referrer"
+                    className="rounded-full object-cover ring-2 ring-sky-500"
                     alt={`${friend.name} profile picture`}
                     src={friend.image}
                     fill
                   />
                 </div>
-              </div>
 
-              <div>
-                <h4 className='text-lg font-semibold'>{friend.name}</h4>
-                <p className='mt-1 max-w-md'>
-                  <span className='text-zinc-400'>
-                    {friend.lastMessage.senderId === session.user.id
-                      ? 'You: '
-                      : ''}
-                  </span>
-                  {friend.lastMessage.text}
-                </p>
-              </div>
-            </Link>
+                <div className="flex-1">
+                  <h4 className="text-lg font-semibold text-sky-900">
+                    {friend.name}
+                  </h4>
+                  <p className="mt-1 text-sm text-gray-700 truncate">
+                    <span className="text-sky-500">
+                      {friend.lastMessage.senderId === session.user.id ? 'You: ' : ''}
+                    </span>
+                    {friend.lastMessage.text}
+                  </p>
+                </div>
+
+                <ChevronRight className="h-6 w-6 text-gray-400 group-hover:text-sky-600 transition" />
+              </Link>
+            ))}
           </div>
-        ))
-      )}
+        )}
+      </div>
     </div>
   )
 }
